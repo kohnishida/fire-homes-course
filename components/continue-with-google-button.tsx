@@ -7,9 +7,12 @@ export default function ContinueWithGoogleButton() {
   const auth = useAuth();
 
   return (
-    <Button onClick={() => {
-      auth?.loginWithGoogle;
-    }}>
+    <Button 
+      onClick={() => {
+        auth?.loginWithGoogle();
+      }}
+      className="w-full"
+    >
       Continue with Button
     </Button>
   )
