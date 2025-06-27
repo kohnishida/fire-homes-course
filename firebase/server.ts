@@ -1,6 +1,7 @@
 import { Firestore, getFirestore } from "firebase-admin/firestore";
 import { getApps, ServiceAccount } from "firebase-admin/app";
-import admin, { initializeApp } from "firebase-admin";
+import admin from "firebase-admin";
+import { Auth, getAuth } from "firebase-admin/auth";
 const serviceAccount = {
   type: "service_account",
   project_id: "fire-homes-course-bc4bc",
@@ -17,17 +18,21 @@ const serviceAccount = {
 };
 
 let firestore: Firestore;
+let auth: Auth;
 const currentApp = getApps();
 
 if (!currentApp.length) {
   // If no apps are initialized, initialize a new app
-  const app = initializeApp({
+  console.log(serviceAccount.private_key);
+  const app = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as ServiceAccount),
   });
   firestore = getFirestore(app);
+  auth = getAuth(app);
 } else {
   const app = currentApp[0];
   firestore = getFirestore(app);
+  auth = getAuth(app);
 }
 
-export { firestore };
+export { firestore, auth };
