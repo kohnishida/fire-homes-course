@@ -6,7 +6,7 @@ const serviceAccount = {
   type: "service_account",
   project_id: "fire-homes-course-bc4bc",
   private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-  private_key: process.env.FIREBASE_PRIVATE_KEY,
+  private_key: process.env.FIREBASE_KEY,
   client_email: process.env.FIREBASE_CLIENT_EMAIL,
   client_id: process.env.FIREBASE_CLIENT_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
@@ -23,7 +23,6 @@ const currentApp = getApps();
 
 if (!currentApp.length) {
   // If no apps are initialized, initialize a new app
-  console.log(serviceAccount.private_key);
   const app = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as ServiceAccount),
   });
