@@ -48,7 +48,10 @@ export default function PropertyForm({ handleSubmit, subtmitButonLabel }: Props)
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="grid grid-cols-2 gap-4">
-          <fieldset className="flex flex-col gap-2">
+          <fieldset
+            className="flex flex-col gap-4"
+            disabled={form.formState.isSubmitting}
+          >
             <FormField
               control={form.control}
               name="status"
@@ -60,7 +63,7 @@ export default function PropertyForm({ handleSubmit, subtmitButonLabel }: Props)
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -128,7 +131,10 @@ export default function PropertyForm({ handleSubmit, subtmitButonLabel }: Props)
               )}
             />
           </fieldset>
-          <fieldset className="flex flex-col gap-2">
+          <fieldset
+            className="flex flex-col gap-4"
+            disabled={form.formState.isSubmitting}
+          >
             <FormField
               control={form.control}
               name="price"
@@ -183,7 +189,13 @@ export default function PropertyForm({ handleSubmit, subtmitButonLabel }: Props)
             />
           </fieldset>
         </div>
-        <Button type="submit" className="max-w-md mx-auto mt-2 w-full flex gap-2">{subtmitButonLabel}</Button>
+        <Button
+          type="submit"
+          className="max-w-md mx-auto mt-8 w-full flex gap-2"
+          disabled={form.formState.isSubmitting}
+        >
+          {subtmitButonLabel}
+        </Button>
       </form>
     </Form>
   );
