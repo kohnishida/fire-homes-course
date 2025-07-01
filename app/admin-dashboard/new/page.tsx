@@ -1,4 +1,6 @@
 import { Breadcrumbs } from "@/components/ui/breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import NewPropertyForm from "./new-property-form";
 
 export default function NewProperty() {
   return(
@@ -11,8 +13,16 @@ export default function NewProperty() {
         {
           label: "New Property"
         }
-      ]}>
-      </Breadcrumbs>
+      ]}
+      />
+      <Card className="mt-5">
+        <CardHeader className="text-3xl font-bold">
+          <CardTitle>New Property</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <NewPropertyForm />
+        </CardContent>
+      </Card>
     </div>
   )
 }
