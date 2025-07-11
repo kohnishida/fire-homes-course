@@ -1,7 +1,6 @@
 import { firestore, getTotalPages } from "@/firebase/server";
 import { PropertyStatus } from "@/types/propertyStatus";
 import { Property } from "@/types/property";
-import { log } from "console";
 import "server-only";
 
 type GetPropertiesOptions = {
@@ -57,7 +56,18 @@ export const getProperties = async (options?: GetPropertiesOptions) => {
       } as Property)
   );
 
-  console.log(properties);
+  // console.log(properties);
 
   return { data: properties, totalPages };
+};
+
+export const getPropertyById = async(propertyId: string) => {
+  const propertySnapshot = await firestore
+    .collection("properties")
+    .doc(propertyId)
+    .get();
+
+  const propertyData = {id: propertySnapshot.id, ...propertySnapshot.data()} as Property;
+  
+  return propertyData;
 };

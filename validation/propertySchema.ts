@@ -11,5 +11,5 @@ export const propertyDataSchema = z.object({
   description: z.string().min(40, "Description must be at least 40 characters"),
   bedrooms: z.coerce.number().min(0, "Bedrooms must be at least 0"),
   bathrooms: z.coerce.number().min(0, "Bathrooms must be at least 0"),
-  status:  z.enum(["draft", "for-sale", "sold"])
+  status:  z.enum(["draft", "for-sale", "sold", "withdrawn"])
 });

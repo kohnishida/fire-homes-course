@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getProperties } from "@/data/properties";
+import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 
 export default async function PropertiesTable ({
@@ -51,9 +52,21 @@ export default async function PropertiesTable ({
                   <TableCell>{address}</TableCell>
                   <TableCell>{property.price}</TableCell>
                   <TableCell>{property.status}</TableCell>
-                  <TableCell>view / edit</TableCell>
+                  <TableCell>
+                    <Button asChild variant={"outline"} size="sm">
+                      <Link href={`/admin-dashboard/view/${property.id}`}>
+                        view
+                      </Link>
+                    </Button>{" "}
+                    /{" "}
+                    <Button asChild variant={"outline"} size="sm">
+                      <Link href={`/admin-dashboard/edit/${property.id}`}>
+                        <PencilIcon></PencilIcon>
+                      </Link>
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              )
+              );
             })}
           </TableBody>
           <TableFooter>
