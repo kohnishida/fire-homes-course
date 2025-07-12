@@ -2,11 +2,20 @@
 
 import { useAuth } from "@/context/auth";
 import Link from "next/link";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function AuthButtons() {
+  const router = useRouter();
   const auth = useAuth();
 
   return (
@@ -31,7 +40,9 @@ export default function AuthButtons() {
           <DropdownMenuContent>
             <DropdownMenuLabel>
               <div>{auth.currentUser.displayName}</div>
-              <div className="font-normal text-xs">{auth.currentUser.email}</div>
+              <div className="font-normal text-xs">
+                {auth.currentUser.email}
+              </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
@@ -47,9 +58,12 @@ export default function AuthButtons() {
                 <Link href="/account/my-favourites">My Favourites</Link>
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={async () => {
-              await auth.logout();
-            }}>
+            <DropdownMenuItem
+              onClick={async () => {
+                await auth.logout();
+                router.refresh();
+              }}
+            >
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
