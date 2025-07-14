@@ -1,5 +1,6 @@
 import {z} from "zod";
 
+// server-side validation schema for property data
 export const propertyDataSchema = z.object({
   address1: z.string().min(1, "Address line 1 must contain a value"),
   address2: z.string().optional(),
@@ -13,3 +14,14 @@ export const propertyDataSchema = z.object({
   bathrooms: z.coerce.number().min(0, "Bathrooms must be at least 0"),
   status:  z.enum(["draft", "for-sale", "sold", "withdrawn"])
 });
+
+// client-side validation schema for property images
+export const propertyImagesSchema = z.object({
+  images: z.array(z.object({
+    id: z.string(),
+    url: z.string(),
+    file: z.instanceof(File).optional(),
+  }))
+});
+
+export const propertySchema = propertyDataSchema.and(propertyImagesSchema);

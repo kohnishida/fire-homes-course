@@ -8,7 +8,7 @@ export default async function EditProperty({params}: {
 }) {
   const paramsValue = await params;
   const property = await getPropertyById(paramsValue.propertyId);
-  console.log({ property });
+  // console.log({ property });
   
   return (
     <div>
