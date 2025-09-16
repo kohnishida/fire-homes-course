@@ -1,52 +1,50 @@
-import PropertySatusBadge from "@/components/property-status-badge";
+import PropertyStatusBadge from "@/components/property-status-badge";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getProperties } from "@/data/properties";
 import { EyeIcon, PencilIcon } from "lucide-react";
 import Link from "next/link";
 import numeral from "numeral";
 
-
-export default async function PropertiesTable ({
-  page = 1
-}: {
-  page?: number
-}) {
-
-  const {data, totalPages} = await getProperties({
+export default async function PropertiesTable({ page = 1 }: { page?: number }) {
+  const { data, totalPages } = await getProperties({
     pagination: {
       page,
-      pageSize: 2
-    }
+      pageSize: 2,
+    },
   });
 
   return (
     <>
-      {!data &&
-        <h1 className="text-center text-zinc-400 py-20 font-bold text-3xl">You have no properties</h1>
-      }
-      {!!data &&
+      {!data && (
+        <h1 className="text-center text-zinc-400 py-20 font-bold text-3xl">
+          You have no properties
+        </h1>
+      )}
+      {!!data && (
         <Table className="mt-5">
           <TableHeader>
             <TableRow>
-              <TableHead>
-                Address
-              </TableHead>
-              <TableHead>
-                Listing Price
-              </TableHead>
-              <TableHead>
-                Status
-              </TableHead>
+              <TableHead>Address</TableHead>
+              <TableHead>Listing Price</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map(property => {
+            {data.map((property) => {
               const address = [
                 property.address1,
                 property.address2,
                 property.city,
-                property.postcode
+                property.postcode,
               ]
                 .filter((addressLine) => !!addressLine)
                 .join(", ");
@@ -56,7 +54,9 @@ export default async function PropertiesTable ({
                   <TableCell>
                     €{numeral(property.price).format("0,0")}
                   </TableCell>
-                  <TableCell><PropertySatusBadge status={property.status} /></TableCell>
+                  <TableCell>
+                    <PropertyStatusBadge status={property.status} />
+                  </TableCell>
                   <TableCell className="flex justify-end gap-1">
                     <Button asChild variant={"outline"} size="sm">
                       <Link href={`/property/${property.id}`}>
@@ -76,7 +76,7 @@ export default async function PropertiesTable ({
           <TableFooter>
             <TableRow>
               <TableCell colSpan={4} className="text-center">
-                {Array.from({length: totalPages}).map((_, i) => {
+                {Array.from({ length: totalPages }).map((_, i) => {
                   return (
                     <Button
                       disabled={page === i + 1}
@@ -95,7 +95,7 @@ export default async function PropertiesTable ({
             </TableRow>
           </TableFooter>
         </Table>
-      }
+      )}
     </>
-  )
+  );
 }

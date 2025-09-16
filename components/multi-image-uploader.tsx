@@ -16,12 +16,14 @@ export type ImageUpload = {
 type Props= {
   images?: ImageUpload[];
   onImagesChange: (images: ImageUpload[]) => void;
+  urlFormatter?: (image: ImageUpload) => string;
 }
 
 export default function MultiImageUploader({
   images = [],
   onImagesChange,
-}: Props ) {
+  urlFormatter,
+}: Props) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,11 +33,11 @@ export default function MultiImageUploader({
         id: `${Date.now()}-${index}-${file.name}`,
         url: URL.createObjectURL(file),
         file,
-      }
+      };
     });
 
     onImagesChange([...images, ...newImages]);
-  }
+  };
 
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -45,12 +47,12 @@ export default function MultiImageUploader({
     items.splice(result.destination.index, 0, reorderedimafe);
 
     onImagesChange(items);
-  }
+  };
 
   const handleDelete = (id: string) => {
-    const updatedImages = images.filter(image => image.id !== id);
+    const updatedImages = images.filter((image) => image.id !== id);
     onImagesChange(updatedImages);
-  }
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4">
@@ -73,10 +75,7 @@ export default function MultiImageUploader({
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="property-images" direction="vertical">
           {(provided) => (
-            <div 
-              {...provided.droppableProps} 
-              ref={provided.innerRef}
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef}>
               {images.map((image, index) => (
                 <Draggable key={image.id} draggableId={image.id} index={index}>
                   {(provided) => (
@@ -88,32 +87,38 @@ export default function MultiImageUploader({
                     >
                       <div className="bg-gray-100 rounded-lg flex items-center gap-2">
                         <div className="size-16 relative">
-                          <Image 
-                            src={image.url}
+                          <Image
+                            src={urlFormatter ? urlFormatter(image) : image.url}
                             alt=""
-                            fill 
+                            fill
                             className="object-cover"
                           />
                         </div>
                         <div className="flex-grow">
-                          <p className="text-sm font-medium">Image {index + 1}</p>
-                            {index === 0 &&
-                              <Badge variant={"success"}>Featured Image</Badge>
-                            }
+                          <p className="text-sm font-medium">
+                            Image {index + 1}
+                          </p>
+                          {index === 0 && (
+                            <Badge variant={"success"}>Featured Image</Badge>
+                          )}
                         </div>
                         <div className="flex items-center p-2">
-                          <button className="text-red-500 p-2" onClick={() => handleDelete(image.id)}>
+                          <button
+                            className="text-red-500 p-2"
+                            onClick={() => handleDelete(image.id)}
+                          >
                             <XIcon />
                           </button>
                           <div className="text-gray-500">
                             <MoveIcon />
                           </div>
                         </div>
-                      </div> 
+                      </div>
                     </div>
                   )}
                 </Draggable>
               ))}
+              {provided.placeholder}
             </div>
           )}
         </Droppable>

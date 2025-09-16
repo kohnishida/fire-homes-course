@@ -6,21 +6,29 @@ const statusLabel = {
   withdrawn: "Withdrawn",
   draft: "Draft",
   sold: "Sold",
-}
+};
 
-const variant: {[key: string]: "primary" | "destructive" | "secondary" | "success"} = {
+const variant: {
+  [key: string]: "primary" | "destructive" | "secondary" | "success";
+} = {
   "for-sale": "primary",
   withdrawn: "destructive",
   draft: "secondary",
   sold: "success",
-}
+};
 
-export default function PropertySatusBadge ({
-  status
+export default function PropertyStatusBadge({
+  status,
+  className
 }: {
-  status: PropertyStatus
+  status: PropertyStatus;
+  className?: string;
 }) {
-  const label = statusLabel[status]
-  
-  return <Badge variant={variant[status]}>{label}</Badge>;
+  const label = statusLabel[status];
+
+  return (
+    <Badge variant={variant[status]} className={className}>
+      {label}
+    </Badge>
+  );
 }
