@@ -102,6 +102,36 @@ export default async function PropertySearch({
           );
         })}
       </div>
+      <div className="flex gap-2 items-center justify-center mt-10">
+        {Array.from({ length: totalPages }).map((_, index) => {
+          const newSearchParams = new URLSearchParams();
+
+          if(searchParamsValues?.minPrice) {
+            newSearchParams.set("minPrice", searchParamsValues.minPrice);
+          }
+          if(searchParamsValues?.maxPrice) {
+            newSearchParams.set("maxPrice", searchParamsValues.maxPrice);
+          }
+          if(searchParamsValues?.minBedrooms) {
+            newSearchParams.set("minBedrooms", searchParamsValues.minBedrooms);
+          }
+
+          newSearchParams.set("page", `${index + 1}`);
+
+          return (
+            <Button
+              key={index}
+              asChild={page !== index + 1}
+              disabled={page === index + 1}
+              variant="outline"
+            >
+              <Link href={`/property-search?${newSearchParams.toString()}`}>
+                {index + 1}
+              </Link>
+            </Button>
+          );
+        })}
+      </div>
     </div>
   );
 }
