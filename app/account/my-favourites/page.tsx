@@ -4,14 +4,17 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { getUserFavourites } from "@/data/favourites";
 import { getPropertiesByIds } from "@/data/properties";
-import { EyeIcon, Trash2Icon } from "lucide-react";
+import { EyeIcon } from "lucide-react";
 import Link from "next/link";
+import { RemoveFavouriteButton } from "./remove-favourite-button";
+import { redirect } from "next/navigation";
 
 export default async function MyFavourites({
   searchParams,
@@ -29,6 +32,10 @@ export default async function MyFavourites({
     (page - 1) * pageSize,
     page * pageSize
   );
+
+  if(!paginatedFavourites.length && page > 1){
+    redirect(`/account/my-favourites?page=${totalPages}`);
+  }
 
   const properties = await getPropertiesByIds(paginatedFavourites);
   console.log({ paginatedFavourites, properties });
@@ -80,9 +87,7 @@ export default async function MyFavourites({
                             <EyeIcon />
                           </Link>
                         </Button>
-                        <Button variant="outline">
-                          <Trash2Icon />
-                        </Button>
+                        <RemoveFavouriteButton propertyId={property.id} />
                       </>
                     )}
                   </TableCell>
@@ -90,6 +95,27 @@ export default async function MyFavourites({
               );
             })}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3} className="text-center">
+                {Array.from({ length: totalPages }).map((_, i) => {
+                  return (
+                    <Button
+                      disabled={page === i + 1}
+                      key={i}
+                      asChild={page !== i + 1}
+                      variant="outline"
+                      className="mx-1"
+                    >
+                      <Link href={`/account/my-favourites?page=${i + 1}`}>
+                        {i + 1}
+                      </Link>
+                    </Button>
+                  );
+                })}
+              </TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       )}
     </div>
