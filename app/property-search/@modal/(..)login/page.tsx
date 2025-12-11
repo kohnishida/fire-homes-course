@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginSuccess } from "./action";
+import { loginSuccess } from "./actions";
 
 export default function LoginModal() {
   const router = useRouter();
