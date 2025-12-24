@@ -1,10 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { auth } from "@/firebase/server";
 import { DecodedIdToken } from "firebase-admin/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import UpdatePasswordForm from "./my-favourites/update-password-form";
+import UpdatePasswordForm from "./update-password-form";
+import DeleteAccountButton from "./delete-account-button";
 
 export default async function Account() {
   const cookieStore = await cookies();
@@ -36,10 +37,14 @@ export default async function Account() {
         <CardContent>
           <Label>Email</Label>
           <div>{decodedToken.email}</div>
-          {!!isPasswordProvider && 
-            <UpdatePasswordForm />
-          }
+          {!!isPasswordProvider && <UpdatePasswordForm />}
         </CardContent>
+        {!decodedToken.admin && 
+          <CardFooter className="flex flex-col items-start">
+            <h2 className="text-red-500 text-2xl font-bold mb-2">Danger Zone</h2>
+            <DeleteAccountButton />
+          </CardFooter>
+        }
       </Card>
     </div>
   );
