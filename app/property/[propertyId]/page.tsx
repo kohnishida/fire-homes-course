@@ -8,11 +8,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getPropertyById } from "@/data/properties";
-import { ArrowLeftIcon, BathIcon, BedIcon } from "lucide-react";
+import { BathIcon, BedIcon } from "lucide-react";
 import Image from "next/image";
 import numeral from "numeral";
 import ReactMarkDown from "react-markdown";
 import BackButton from "./back-button";
+
+export const dynamic = "force-static";
 
 export default async function Property({ params }: { params: Promise<any> }) {
   const paramsValue = await params;
