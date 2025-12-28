@@ -13,7 +13,7 @@ export default function Login() {
           <LoginForm />
         </CardContent>
         <CardFooter>
-          Don't have an account?
+          Don&apos;t have an account?
           <Link href="/register" className="pl-2 underline">
             Register here.
           </Link>

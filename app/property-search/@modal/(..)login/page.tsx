@@ -38,7 +38,7 @@ export default function LoginModal() {
           />
         </div>
         <DialogFooter className="block">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link className="underline pl-2" href="/register">
             Register here.
           </Link>
