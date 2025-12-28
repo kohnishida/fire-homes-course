@@ -3,13 +3,21 @@
 import PropertyForm from "@/components/property-form";
 import { auth, storage } from "@/firebase/client";
 import { Property } from "@/types/property";
-import { propertyDataSchema, propertySchema } from "@/validation/propertySchema";
+import {
+  propertyDataSchema,
+  propertySchema,
+} from "@/validation/propertySchema";
 import { SaveIcon } from "lucide-react";
 import { z } from "zod";
-import { updateProperty } from "./action";
+import { updateProperty } from "./actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { deleteObject, ref, uploadBytesResumable, UploadTask } from "firebase/storage";
+import {
+  deleteObject,
+  ref,
+  uploadBytesResumable,
+  UploadTask,
+} from "firebase/storage";
 import { savePropertyImages } from "../../actions";
 
 type Props = Property;
@@ -48,16 +56,20 @@ export default function EditPropertyForm({
     }
 
     const storageTasks: (UploadTask | Promise<void>)[] = [];
-    const imagesToDelete = images.filter(image => !newImages.find(img => img.url === image));
+    const imagesToDelete = images.filter(
+      (image) => !newImages.find((img) => img.url === image)
+    );
 
-    imagesToDelete.forEach(image => {
+    imagesToDelete.forEach((image) => {
       storageTasks.push(deleteObject(ref(storage, image)));
     });
 
     const paths: string[] = [];
     newImages.forEach((image, index) => {
-      if(image.file){
-        const path = `properites/${id}/${Date.now()}-${index}-${image.file.name}`;
+      if (image.file) {
+        const path = `properites/${id}/${Date.now()}-${index}-${
+          image.file.name
+        }`;
         paths.push(path);
 
         // create a reference to the storage location
@@ -70,16 +82,19 @@ export default function EditPropertyForm({
     });
 
     await Promise.all(storageTasks);
-    await savePropertyImages({
-      propertyId: id,
-      images: paths,
-    }, token);
+    await savePropertyImages(
+      {
+        propertyId: id,
+        images: paths,
+      },
+      token
+    );
 
     toast.success("Success!", {
       description: "Property updated!",
     });
 
-    router.push('/admin-dashboard')
+    router.push("/admin-dashboard");
   };
 
   return (
@@ -101,7 +116,7 @@ export default function EditPropertyForm({
           bathrooms,
           description,
           status,
-          images: images.map(image => ({
+          images: images.map((image) => ({
             id: image,
             url: image,
           })),

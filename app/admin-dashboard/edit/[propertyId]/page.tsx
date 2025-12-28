@@ -2,14 +2,17 @@ import { Breadcrumbs } from "@/components/ui/breadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPropertyById } from "@/data/properties";
 import EditPropertyForm from "./edit-property-form";
+import DeletePropertyButton from "./delete-property-button";
 
-export default async function EditProperty({params}: {
-  params: Promise<any>
+export default async function EditProperty({
+  params,
+}: {
+  params: Promise<any>;
 }) {
   const paramsValue = await params;
   const property = await getPropertyById(paramsValue.propertyId);
   // console.log({ property });
-  
+
   return (
     <div>
       <Breadcrumbs
@@ -25,8 +28,14 @@ export default async function EditProperty({params}: {
       ></Breadcrumbs>
 
       <Card className="mt-5">
-        <CardHeader className="text-3xl font-bold">
-          <CardTitle>Edit Property</CardTitle>
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold flex justify-between">
+            Edit Property{" "}
+            <DeletePropertyButton
+              propertyId={property.id}
+              images={property.images ?? []}
+            />
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <EditPropertyForm
