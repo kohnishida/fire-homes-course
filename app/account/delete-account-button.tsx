@@ -75,20 +75,27 @@ export default function DeleteAccountButton() {
             <div>
               This action cannot be undone. This will permanently delete your
               account and remove all your data from our servers.
-              <div>
+              <div className="mt-2">
                 <Label>Enter current password to continue</Label>
                 <Input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
+                  className="mt-2"
                 />
               </div>
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDeleteClick} disabled={isDeleteing}>
+          <AlertDialogCancel className="cursor-pointer">
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="cursor-pointer"
+            onClick={handleDeleteClick}
+            disabled={isDeleteing}
+          >
             {isDeleteing ? "Deleting..." : "Delete Account"}
           </AlertDialogAction>
         </AlertDialogFooter>

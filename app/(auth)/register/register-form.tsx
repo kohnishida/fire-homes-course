@@ -120,7 +120,9 @@ export default function RegisterForm() {
               );
             }}
           />
-          <Button type="submit">Register</Button>
+          <Button type="submit" className="cursor-pointer">
+            Register
+          </Button>
           <div className="text-center">or</div>
         </fieldset>
       </form>

@@ -132,7 +132,9 @@ export default function UpdatePasswordForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">Update Password</Button>
+            <Button type="submit" className="cursor-pointer">
+              Update Password
+            </Button>
           </fieldset>
         </form>
       </Form>

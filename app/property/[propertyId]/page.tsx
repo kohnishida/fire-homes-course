@@ -51,8 +51,8 @@ export default async function Property({ params }: { params: Promise<any> }) {
             </CarouselContent>
             {property.images.length > 1 && (
               <>
-                <CarouselPrevious className="translate-x-24 size-10" />
-                <CarouselNext className="-translate-x-24 size-10" />
+                <CarouselPrevious className="translate-x-24 size-10 cursor-pointer" />
+                <CarouselNext className="-translate-x-24 size-10 cursor-pointer" />
               </>
             )}
           </Carousel>
@@ -77,7 +77,7 @@ export default async function Property({ params }: { params: Promise<any> }) {
             ))}
           </h1>
           <h2 className="text-3xl font-light">
-            £{numeral(property.price).format("0,0")}
+            €{numeral(property.price).format("0,0")}
           </h2>
           <div className="flex gap-10">
             <div className="flex gap-2">

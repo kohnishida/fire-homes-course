@@ -23,7 +23,7 @@ export default function AuthButtons() {
       {!!auth?.currentUser && (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar>
+            <Avatar className="cursor-pointer">
               {!!auth.currentUser.photoURL && (
                 <Image
                   src={auth.currentUser.photoURL}
@@ -46,16 +46,22 @@ export default function AuthButtons() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/account">My Account</Link>
+              <Link href="/account" className="cursor-pointer">
+                My Account
+              </Link>
             </DropdownMenuItem>
             {!!auth.customClaims?.admin && (
               <DropdownMenuItem asChild>
-                <Link href="/admin-dashboard">Admin Dashboard</Link>
+                <Link href="/admin-dashboard" className="cursor-pointer">
+                  Admin Dashboard
+                </Link>
               </DropdownMenuItem>
             )}
             {!auth.customClaims?.admin && (
               <DropdownMenuItem asChild>
-                <Link href="/account/my-favourites">My Favourites</Link>
+                <Link href="/account/my-favourites" className="cursor-pointer">
+                  My Favourites
+                </Link>
               </DropdownMenuItem>
             )}
             <DropdownMenuItem
@@ -63,6 +69,7 @@ export default function AuthButtons() {
                 await auth.logout();
                 router.refresh();
               }}
+              className="cursor-pointer"
             >
               Logout
             </DropdownMenuItem>

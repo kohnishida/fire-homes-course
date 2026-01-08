@@ -102,7 +102,7 @@ export default function FiltersForm() {
             </FormItem>
           )}
         ></FormField>
-        <Button type="submit" className="mt-auto">Search</Button>
+        <Button type="submit" className="mt-auto cursor-pointer">Search</Button>
       </form>
     </Form>
   );

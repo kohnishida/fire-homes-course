@@ -20,7 +20,7 @@ export default function ContinueWithGoogleButton() {
           alert("Failed to login with Google. Please try again.");
         }
       }}
-      className="w-full"
+      className="w-full cursor-pointer"
     >
       Continue with Google
     </Button>

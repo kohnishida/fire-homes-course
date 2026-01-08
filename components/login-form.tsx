@@ -54,10 +54,11 @@ export default function LoginForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-      >
-        <fieldset disabled={form.formState.isSubmitting} className="flex flex-col gap-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <fieldset
+          disabled={form.formState.isSubmitting}
+          className="flex flex-col gap-4"
+        >
           <FormField
             control={form.control}
             name="email"
@@ -86,7 +87,9 @@ export default function LoginForm({
               );
             }}
           />
-          <Button type="submit">Login</Button>
+          <Button type="submit" className="cursor-pointer">
+            Login
+          </Button>
           <div>
             Forgotton your password?
             <Link href="/forgot-password" className="pl-2 underline">

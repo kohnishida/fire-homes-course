@@ -231,7 +231,7 @@ export default function PropertyForm({
 
         <Button
           type="submit"
-          className="max-w-md mx-auto mt-8 w-full flex gap-2"
+          className="max-w-md mx-auto mt-8 w-full flex gap-2 cursor-pointer"
           disabled={form.formState.isSubmitting}
         >
           {subtmitButonLabel}
