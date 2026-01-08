@@ -26,8 +26,8 @@ To run it locally, please create your own Firebase project and configure environ
 
 #### 1) Clone & Install
 ```bash
-git clone <YOUR_REPO_URL>
-cd <YOUR_PROJECT_NAME>
+git clone https://github.com/kohnishida/fire-homes.git
+cd fire-homes
 npm install
 ```
 
