@@ -65,7 +65,7 @@ export default function MultiImageUploader({
         onChange={handleInputChange}
       />
       <Button
-        className="w-full"
+        className="w-full cursor-pointer"
         variant={"outline"}
         type="button"
         onClick={() => uploadInputRef?.current?.click()}
